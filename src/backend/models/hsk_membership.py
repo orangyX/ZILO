@@ -9,6 +9,12 @@ class HSKMembership:
 
         self.hsk_level = hsk_level
 
+    def get_hsk_version(self) -> HSKVersion:
+        return self.hsk_version
+
+    def get_hsk_level(self) -> int:
+        return self.hsk_level
+
     def _validate_level(self, hsk_level: int) -> bool:
         if type(hsk_level) is not int: # not isinstance(hsk_level, int) yields true due to double negation
             return False
