@@ -1,6 +1,7 @@
 # Complete HSK Vocabulary
 ZILO uses vocabulary data, sourced from the Complete HSK Vocabulary project, maintained by Yanis Zafirópulos (drkameleon); the repository is available here.
 * Copyright: © 2026 Yanis Zafirópulos
+* Repository: https://github.com/drkameleon/complete-hsk-vocabulary
 * License: MIT
 * License text: https://github.com/drkameleon/complete-hsk-vocabulary/blob/main/LICENSE
 * Dataset: complete.json
