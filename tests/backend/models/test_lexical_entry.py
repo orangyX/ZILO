@@ -17,7 +17,8 @@ def test_good_lexical_entry() -> None:
                                 traditional="我", 
                                 pinyin="wǒ",
                                 characters=[Character("我", readings=["wǒ"], meanings=[Meaning(definition="I", part_of_speech=PartOfSpeech.PRONOUN)])],
-                                hsk_memberships=[HSKMembership(hsk_version=HSKVersion.HSK_2, hsk_level=1), HSKMembership(HSKVersion.HSK_3, 1)],
+                                hsk_memberships=[HSKMembership(hsk_version=HSKVersion.HSK_2, hsk_level=1), HSKMembership(HSKVersion.HSK_3_2021, 1)],
+                                part_of_speech=[PartOfSpeech.PRONOUN],
                                 meanings=[Meaning("I", PartOfSpeech.PRONOUN), Meaning("Myself", PartOfSpeech.PRONOUN)],
                                 examples=[ExampleSentence(hanzi="我是学生", pinyin="wǒ shì xuéshēng", english="I am a student"), ExampleSentence(hanzi="我星期二没有课", pinyin="wǒ xīngqī'èr méiyǒu kè", english="I don't have class on Tuesday")]
                                 )
@@ -40,7 +41,7 @@ def test_good_lexical_entry() -> None:
     assert hsk_members[0].get_hsk_version() == HSKVersion.HSK_2
     assert hsk_members[0].get_hsk_level() == 1
 
-    assert hsk_members[1].get_hsk_version() == HSKVersion.HSK_3
+    assert hsk_members[1].get_hsk_version() == HSKVersion.HSK_3_2021
     assert hsk_members[1].get_hsk_level() == 1
 
     means = good_lexical.get_meanings()
@@ -70,6 +71,7 @@ def test_lexical_composition() -> None:
         traditional="學生",
         pinyin="xuéshēng",
         characters=[Character(hanzi="学", readings=["xué"], meanings=[Meaning(definition="to study", part_of_speech=PartOfSpeech.VERB)]), Character(hanzi="生", readings=["shēng"], meanings=[Meaning("to grow", PartOfSpeech.VERB), Meaning("to give birth", PartOfSpeech.VERB), Meaning("to be born", PartOfSpeech.VERB)])], # There are more cases, but I will not encode them here
+        part_of_speech=[PartOfSpeech.NOUN],
         hsk_memberships=[],
         meanings = [],
         examples = []
@@ -90,7 +92,8 @@ def test_lexical_lengths() -> None:
         traditional="早飯",
         pinyin="zǎo fàn",
         characters=[Character(hanzi="早", readings=None, meanings=None), Character(hanzi="饭", readings=None, meanings=None)],
-        hsk_memberships=[HSKMembership(hsk_version=HSKVersion.HSK_3, hsk_level=1)],
+        part_of_speech=[PartOfSpeech.NOUN],
+        hsk_memberships=[HSKMembership(hsk_version=HSKVersion.HSK_3_2021, hsk_level=1)],
         meanings = [Meaning(definition="breakfast", part_of_speech=PartOfSpeech.NOUN)],
         examples=[ExampleSentence(hanzi="明天早上我们一起去咖啡馆吃早饭吧", pinyin="míngtiān zǎoshang wǒmen yìqǐ qù kāfēiguǎn chī zǎofàn ba", english="Let's eat breakfast at the cafe tomorrow morning")]
     )
@@ -101,6 +104,6 @@ def test_lexical_lengths() -> None:
     assert len(lexical_case.get_examples()) == 1
 
 def test_empty_character_collection() -> None:
-    empty_case = LexicalEntry(entry_id="test_004", hanzi="学习", traditional="學習", pinyin="xuéxí", characters=[], meanings=[], hsk_memberships=[], examples=[])
+    empty_case = LexicalEntry(entry_id="test_004", hanzi="学习", traditional="學習", pinyin="xuéxí", characters=[], meanings=[], part_of_speech = [], hsk_memberships=[], examples=[])
 
     assert not empty_case.contains_character(Character(hanzi="学", readings=[], meanings=[]))

@@ -1,0 +1,10 @@
+[
+    {
+        "simplified": "我",
+        "level": ["old-1", "new-1", "newest-1"]
+    },
+    {
+        "simplified": "你",
+        "level": ["old-1", "new-1"]
+    }
+]

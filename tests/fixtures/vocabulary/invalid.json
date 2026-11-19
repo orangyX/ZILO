@@ -1,0 +1,37 @@
+[
+    {
+        "simplified": "你好",
+        "radical": "亻",
+        "level": ["old-1", "new-1", "newest-1"],
+        "frequency": 100,
+        "pos": ["l"],
+        "forms": [
+            {
+                "traditional": "你好",
+                "transcriptions": {
+                    "pinyin": "nǐ hǎo",
+                    "numeric": "ni3 hao3"
+                },
+                "meanings": ["hello", "hi"],
+                "classifiers": []
+            }
+        ]
+    },
+    {
+        "simplified": "学习",
+        "radical": "子",
+        "level": ["old-1", "new-1", "newest-1"],
+        "frequency": 200,
+        "pos": ["v"],
+        "forms": [
+            {
+                "traditional": "學習",
+                "transcriptions": {
+                    "pinyin": "xué xí",
+                    "numeric": "xue2 xi2"
+                },
+                "meanings": ["to study", "to learn"],
+                "classifiers": []
+            }
+        ]
+]
