@@ -35,28 +35,49 @@ def test_adversarial_level_2() -> None:
         HSKMembership(HSKVersion.HSK_2, hsk_level=None)
 
 def test_valid_membership_3() -> None:
-    good_lower = HSKMembership(HSKVersion.HSK_3, hsk_level=1)
-    good_upper = HSKMembership(HSKVersion.HSK_3, hsk_level=9)
+    good_lower_2021 = HSKMembership(HSKVersion.HSK_3_2021, hsk_level=1)
+    good_upper_2021 = HSKMembership(HSKVersion.HSK_3_2021, hsk_level=9)
+
+    good_lower_2025 = HSKMembership(HSKVersion.HSK_3_2025, hsk_level=1)
+    good_upper_2025 = HSKMembership(HSKVersion.HSK_3_2025, hsk_level=9)
 
     # Assertions
-    assert good_lower.hsk_level == 1
-    assert good_lower.hsk_version == HSKVersion.HSK_3
+    assert good_lower_2021.hsk_level == 1
+    assert good_lower_2021.hsk_version == HSKVersion.HSK_3_2021
 
-    assert good_upper.hsk_level == 9
-    assert good_upper.hsk_version == HSKVersion.HSK_3
+    assert good_upper_2021.hsk_level == 9
+    assert good_upper_2021.hsk_version == HSKVersion.HSK_3_2021
+
+    assert good_lower_2025.hsk_level == 1
+    assert good_lower_2025.hsk_version == HSKVersion.HSK_3_2025
+
+    assert good_upper_2025.hsk_level == 9
+    assert good_upper_2025.hsk_version == HSKVersion.HSK_3_2025
 
 def test_adversarial_level_3() -> None:
-    # Lower bound check
+    # Lower bound check (2021)
     with pytest.raises(ValueError):
-        HSKMembership(HSKVersion.HSK_3, 0)
+        HSKMembership(HSKVersion.HSK_3_2021, 0)
 
-    # Upper bound check
+    # Upper bound check (2021)
     with pytest.raises(ValueError):
-        HSKMembership(HSKVersion.HSK_3, 10)
+        HSKMembership(HSKVersion.HSK_3_2021, 10)
 
-    # None type check
+    # None type check (2021)
     with pytest.raises(ValueError):
-        HSKMembership(HSKVersion.HSK_3, None)
+        HSKMembership(HSKVersion.HSK_3_2021, None)
+
+    # Lower bound check (2025)
+    with pytest.raises(ValueError):
+        HSKMembership(HSKVersion.HSK_3_2025, 0)
+
+    # Upper bound check (2025)
+    with pytest.raises(ValueError):
+        HSKMembership(HSKVersion.HSK_3_2025, 10)
+
+    # None type check (2025)
+    with pytest.raises(ValueError):
+        HSKMembership(HSKVersion.HSK_3_2025, None)
 
 def test_adversarial_level_type() -> None:
     # Incorrect type for HSK_2 check
@@ -67,7 +88,10 @@ def test_adversarial_level_type() -> None:
     with pytest.raises(ValueError):
         HSKMembership(2.0, 1)
 
-    # Incorrect type for HSK_3 check
+    # Incorrect type for HSK_3_2021 check
     with pytest.raises(ValueError):
-            HSKMembership(HSKVersion.HSK_3, "1")
-    
+            HSKMembership(HSKVersion.HSK_3_2021, "1")
+
+    # Incorrect type for HSK_3_2025 check
+    with pytest.raises(ValueError):
+            HSKMembership(HSKVersion.HSK_3_2025, "1")

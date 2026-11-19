@@ -20,7 +20,7 @@ class HSKMembership:
             return False
         elif self.hsk_version == HSKVersion.HSK_2:
             return 1 <= hsk_level <= 6
-        elif self.hsk_version == HSKVersion.HSK_3:
+        elif self.hsk_version in (HSKVersion.HSK_3_2021, HSKVersion.HSK_3_2025):
             return 1 <= hsk_level <= 9
 
         return False # Something else went wrong; perhaps the version is incorrect

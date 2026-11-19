@@ -2,6 +2,7 @@ from .character import Character
 from .meaning import Meaning
 from .hsk_membership import HSKMembership
 from .example_sentence import ExampleSentence
+from ..enums.part_of_speech import PartOfSpeech
 
 class LexicalEntry:
     """
@@ -25,6 +26,7 @@ class LexicalEntry:
                 pinyin: str, 
                 characters: list[Character], 
                 meanings: list[Meaning], 
+                part_of_speech: list[PartOfSpeech],
                 hsk_memberships: list[HSKMembership], 
                 examples: list[ExampleSentence]) -> None:
         
@@ -34,6 +36,7 @@ class LexicalEntry:
         self.pinyin = pinyin
         self.characters = characters
         self.meanings = meanings
+        self.part_of_speech = part_of_speech
         self.hsk_memberships = hsk_memberships
         self.examples = examples
 
@@ -54,6 +57,9 @@ class LexicalEntry:
 
     def get_meanings(self) -> list[Meaning]:
         return self.meanings
+
+    def get_part_of_speech(self) -> list[PartOfSpeech]:
+        return self.part_of_speech
 
     def get_hsk_memberships(self) -> list[HSKMembership]:
         return self.hsk_memberships
