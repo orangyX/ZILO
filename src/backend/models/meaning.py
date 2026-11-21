@@ -5,7 +5,7 @@ class Meaning:
         Minimal Meaning class; a character/lexical entry stores a list of Meaning objects
     """
 
-    def __init__(self, definition: str, part_of_speech: PartOfSpeech) -> None:
+    def __init__(self, definition: str, part_of_speech=PartOfSpeech|None) -> None:
         self.definition = definition
         self.part_of_speech = part_of_speech
 
