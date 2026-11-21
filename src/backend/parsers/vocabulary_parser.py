@@ -3,6 +3,7 @@ from src.backend.enums.hsk_version import HSKVersion
 from pathlib import Path
 from src.backend.enums.part_of_speech import PartOfSpeech
 from src.backend.mappings.part_of_speech_map import POS_MAP
+from src.backend.models.meaning import Meaning
 
 def load_dataset(file_path: str | Path) -> list[dict] | None:
     try:
@@ -45,8 +46,52 @@ def parse_hsk_membership(data: list[dict]) -> dict[tuple[HSKVersion, int], list[
 
     return curriculum_map
 
-def parse_pos(curr_data: dict[tuple[HSKVersion, int], list[dict]]) -> None: # For now
-    raise NotImplementedError("Not yet implemented")
+def parse_pos(pos_raw: list[str]) -> list[PartOfSpeech]:
+    """ 
+        Parse known pos abbreviations, fetch enum objects from the POS_MAP
+    """
+    pos_parsed = []
+    seen = set()
+
+    for raw in pos_raw:
+        pos = POS_MAP.get(raw, PartOfSpeech.UNKNOWN)
+
+        if pos not in seen:
+            pos_parsed.append(pos)
+            seen.add(pos)
+
+    return pos_parsed 
+
+def parse_meaning(meaning_raw: list[str]) -> list[Meaning]:
+    parsed_meanings = []
+
+    for meaning in meaning_raw:
+        parsed_meanings.append(Meaning(meaning))
+
+    return parsed_meanings
+
+def parse_forms(raw_forms: list[dict]) -> list[dict]:
+    parsed_forms = []
+    
+    for form in raw_forms:
+        traditional = form["traditional"]
+        transcriptions = form["transcriptions"]
+
+        pinyin = transcriptions["pinyin"]
+        numeric = transcriptions["numeric"]
+
+        meanings = parse_meaning(form["meanings"])
+
+        entry = {
+            "traditional": traditional,
+            "pinyin": pinyin,
+            "numeric": numeric,
+            "meanings": meanings
+        }
+
+        parsed_forms.append(entry)
+
+    return parsed_forms
 
 if __name__ == "__main__":
     data = load_dataset(r"data/raw/complete.json")
