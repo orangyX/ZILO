@@ -1,9 +1,11 @@
 import json
+
 from src.backend.enums.hsk_version import HSKVersion
-from pathlib import Path
 from src.backend.enums.part_of_speech import PartOfSpeech
 from src.backend.mappings.part_of_speech_map import POS_MAP
 from src.backend.models.meaning import Meaning
+
+from pathlib import Path
 
 def load_dataset(file_path: str | Path) -> list[dict] | None:
     try:
@@ -70,39 +72,39 @@ def parse_meaning(meaning_raw: list[str]) -> list[Meaning]:
 
     return parsed_meanings
 
-def parse_forms(raw_forms: list[dict]) -> list[dict]:
-    parsed_forms = []
+def parse_entry(raw_data: dict) -> list[dict]:
+    """
+        Accesses the raw data, and flattens the raw data into a dictionary structure
+    """
     
-    for form in raw_forms:
-        traditional = form["traditional"]
-        transcriptions = form["transcriptions"]
-
-        pinyin = transcriptions["pinyin"]
-        numeric = transcriptions["numeric"]
-
-        meanings = parse_meaning(form["meanings"])
-
+    parsed = []
+    
+    for item in raw_data:
+        for form in item.get("forms", []):
+            transcriptions = form.get("transcriptions", {})
+        
         entry = {
-            "traditional": traditional,
-            "pinyin": pinyin,
-            "numeric": numeric,
-            "meanings": meanings
+            "simplified": item["simplified"],
+            "radical": item.get("radical"),
+            "level": item.get("level", []),
+            "frequency": item.get("frequency"),
+            "pos": item.get("pos", []),
+            "traditional": form["traditional"],
+            "pinyin": transcriptions.get("pinyin"),
+            "numeric": transcriptions.get("numeric"),
+            "meanings": form.get("meanings"),
+            "classifiers": form.get("classifiers")
         }
-
-        parsed_forms.append(entry)
-
-    return parsed_forms
+        
+        parsed.append(entry)
+        
+    return parsed
 
 if __name__ == "__main__":
-    data = load_dataset(r"data/raw/complete.json")
-    print(f"Loadad data with {len(data)} entries")
+    raw_data = load_dataset(r"data/raw/complete.json")
+    print(f"Loadad data with {len(raw_data)} entries")
 
-    curr_data = parse_hsk_membership(data)
-
-    lim = 0
-    for k, v in curr_data.items():
-        print(k)
-        lim += 1
-
-        if lim == 10:
-            break
+    unparsed_flattened_data = parse_entry(raw_data)
+    
+    for entry in unparsed_flattened_data:
+        print(entry)
