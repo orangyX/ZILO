@@ -13,7 +13,7 @@ from src.backend.enums.part_of_speech import PartOfSpeech
 from src.backend.models.meaning import Meaning
 from tests.fixtures.vocabulary.form_test_data.good import FORM_001, FORM_002
 
-FIXTURES = Path("tests/fixtures/vocabulary/load_test_data")
+FIXTURES = Path(__file__).resolve().parents[2] / "fixtures" / "vocabulary" / "load_test_data"
 
 def test_load_dataset_good() -> None:
     """
